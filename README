@@ -1,0 +1,22 @@
+This cut-down example of using Rsyslog in containers was prepared in response to
+a conversation in the following issue report:
+
+    https://github.com/rsyslog/rsyslog/issues/2159
+
+First build the container, something like:
+
+    cd /path/to/directory
+    docker build --tag rsyslog-logger .
+
+To run the container, you'll need to do something like:
+
+    docker run --env RSYSLOG_LOGGING=on rsyslog-logger
+
+If you want to use the log forwarding, you will need to change the domain
+in `config/papertrail/rsyslog.conf` either to a valid Papertrail domain, or to
+another FQDN of your choice. You can get a free account from https://papertrailapp.com/
+to test this.
+
+You'll also want to change the input directives too. I've added my current ones
+to give a flavour of how I am (mis)using Rsyslog. These are implemented as a set
+of on-host volumes, and they are written by a variety of other containers.
